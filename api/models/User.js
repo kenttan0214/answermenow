@@ -8,7 +8,8 @@ module.exports = {
     },
     password: {
       type: 'string',
-      required: true
+      required: true,
+      minLength: 7
     },
     isActive: {
       type: 'boolean',

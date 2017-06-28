@@ -4,14 +4,17 @@ module.exports = {
       return res.forbidden();
     }
 
-    var user = req.param('user');
+    var body = req.body;
+    var user = body ? body.user : null;
 
-    User.create(user).exec(function (err, userAccount) { // eslint-disable-line no-undef
-      if (!err) {
-        return res.json(userAccount);
-      } else {
-        return res.badRequest();
-      }
-    });
+    if (user) {
+      UserService.createUserAccount(user, function (success, response) { // eslint-disable-line no-undef
+        if (success) {
+          return res.json(response);
+        } else {
+          return res.badRequest(response);
+        }
+      });
+    }
   }
 };
