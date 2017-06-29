@@ -7,5 +7,14 @@ module.exports = {
         return done(false, err);
       }
     });
+  },
+  findUser: function (criteria, done) {
+    User.findOne(criteria).exec(function (err, record) { // eslint-disable-line no-undef
+      if (!err && record) {
+        return done(true, record);
+      } else {
+        return done(false, err);
+      }
+    });
   }
 };
