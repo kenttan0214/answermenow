@@ -10,7 +10,12 @@ module.exports = {
     if (user) {
       UserService.createUserAccount(user, function (success, response) { // eslint-disable-line no-undef
         if (success) {
-          return res.json(response);
+          var token = TokenService.create({ // eslint-disable-line no-undef
+            id: response.id,
+            email: response.email,
+            password: response.password
+          });
+          return res.json({accessToken: token});
         } else {
           return res.badRequest(response);
         }
