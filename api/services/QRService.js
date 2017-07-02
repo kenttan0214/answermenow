@@ -1,4 +1,4 @@
-var QRCode = require('qrcode'); //https://github.com/soldair/node-qrcode
+const QRCode = require('qrcode'); //https://github.com/soldair/node-qrcode
 
 module.exports = {
   create: function (content, done) {
