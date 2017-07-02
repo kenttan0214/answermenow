@@ -1,19 +1,21 @@
-module.exports = function (req, res, next) {
-  var userDetails = req.userDetails;
+module.exports = async (req, res, next) => {
+  const {userDetails} = req;
 
   if (userDetails) {
-    UserService.findUser({id: userDetails.id}, function (success) { // eslint-disable-line no-undef
-      if (success) {
-        return next();
-      } else {
-        forbiddenRequest(res);
-      }
-    });
+    const {id} = userDetails;
+    const {response, isSuccess} = await UserService.findUser({id});
+    
+    if (isSuccess && response) {
+      return next();
+    } else {
+      forbiddenRequest(res);
+    }
+    
   } else {
     forbiddenRequest(res);
   }
 };
 
-function forbiddenRequest (res) {
+ const forbiddenRequest = (res) => {
   return res.forbidden('You are not permitted to perform this action.');
 }

@@ -1,35 +1,50 @@
 module.exports = {
-  createUserAccount: function (user, done) {
-    User.create(user).exec(function (err, userAccount) { // eslint-disable-line no-undef
-      if (!err) {
-        return done(true, userAccount);
-      } else {
-        return done(false, err);
-      }
-    });
+  createUserAccount: async (user) => {
+    let response = {};
+    let isSuccess = true;
+    
+    try {
+      response = await User.create(user); // eslint-disable-line no-undef
+    } catch (err) {
+      response = err;
+      isSuccess = false;
+    }
+
+    return {response, isSuccess};
   },
-  findUser: function (criteria, done) {
-    User.findOne(criteria).exec(function (err, record) { // eslint-disable-line no-undef
-      if (!err && record) {
-        return done(true, record);
-      } else {
-        return done(false, err);
-      }
-    });
+  findUser: async (criteria) => {
+    let response = {};
+    let isSuccess = true;
+    
+    try {
+      response = await User.findOne(criteria);
+    } catch (err) {
+      isSuccess = false;
+      response = err;
+    }
+    
+    return {response, isSuccess};
   },
-  getUserFields: function (criteria, fields, done) {
-    User.findOne(criteria).exec(function (err, record) { // eslint-disable-line no-undef
-      if (!err && record) {
+  getUserFields: async (criteria, fields) => {
+    let response = {};
+    let isSuccess = true; 
+    
+    try {
+      response = await User.findOne(criteria);
+      
+      if (response) {
         var filteredRecord = {};
-        for (var i = 0; i < fields.length; ++i) {
-          var field = fields[i];
+        for (let field of fields) {
           filteredRecord[field] = record[field];
         }
-        return done(true, filteredRecord);
-      } else {
-        return done(false, err);
+        response = filteredRecord;
       }
-    });
+    } catch (err) {
+      isSuccess = false;
+      response = err;
+    }
+    
+    return {response, isSuccess};
   }
 };
 

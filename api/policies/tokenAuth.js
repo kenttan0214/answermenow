@@ -1,15 +1,16 @@
-module.exports = function (req, res, next) {
-  var accessToken = req.headers['x-access-token'];
+module.exports = async (req, res, next) => {
+  const accessToken = req.headers['x-access-token'];
 
   if (accessToken) {
-    TokenService.validate(accessToken, function (result) { // eslint-disable-line no-undef
-      if (result && result.isValid) {
-        req.userDetails = result.decoded;
-        return next();
-      } else {
-        forbiddenRequest(res);
-      }
-    });
+    const {result, isSuccess} = await TokenService.validate(accessToken);
+    
+    if (isSuccess && result) {
+      req.userDetails = result;
+      return next();
+    } else {
+      forbiddenRequest(res);
+    }
+    
   } else {
     forbiddenRequest(res);
   }

@@ -1,41 +1,44 @@
 module.exports = {
-  create: function (req, res) {
+  create: async (req, res) => {
     if (req.method.toUpperCase() != 'POST') {
       return res.forbidden();
     }
 
-    var body = req.body;
-    var user = body ? body.user : null;
+    const { body } = req;
+    const user = body ? body.user : null;
 
     if (user) {
-      UserService.createUserAccount(user, function (success, response) { // eslint-disable-line no-undef
-        if (success) {
-          var token = generateAccessToken(response);
-          var result = getResponseObject(token, response);
-          return res.json(result);
-        } else {
-          return res.badRequest(response);
-        }
-      });
+      const {response, isSuccess} = await UserService.createUserAccount(user);
+      
+      if (isSuccess) {
+        const token = generateAccessToken(response);
+        const result = getResponseObject(token, response);
+        return res.json(result);
+      } else {
+        return res.badRequest(response);
+      }
+
+    } else {
+      return res.forbidden();
     }
   },
-  login: function (req, res) {
+  login: async (req, res) => {
     if (req.method.toUpperCase() != 'POST') {
       return res.forbidden();
     }
 
-    var body = req.body;
-    var user = body ? body.user : {};
-
-    UserService.findUser(user, function (success, response) { // eslint-disable-line no-undef
-      if (success) {
-        var token = generateAccessToken(response);
-        var result = getResponseObject(token, response);
-        return res.json(result);
-      } else {
-        return res.notFound({message: 'user not found'});
-      }
-    });
+    const { body } = req;
+    const user = body ? body.user : null;
+    
+    const {response, isSuccess} = await UserService.findUser(user);
+    
+    if (isSuccess && response) {
+      const token = generateAccessToken(response);
+      const result = getResponseObject(token, response);
+      return res.json(result);
+    } else {
+      return res.notFound({message: 'user not found'});
+    }
   }
 };
 

@@ -1,26 +1,26 @@
-var jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
-var constant = sails.config.constant; // eslint-disable-line no-undef
+const constant = sails.config.constant; // eslint-disable-line no-undef
 
 module.exports = {
-  create: function (input) {
-    var token = jwt.sign(input, constant.SECRET_KEY, {
+  create: (input) => {
+    const token = jwt.sign(input, constant.SECRET_KEY, {
       expiresIn: 60 * 60 * 24 // expires in 24 hours
     });
 
     return token;
   },
-  validate: function (token, done) {
-    jwt.verify(token, constant.SECRET_KEY, function (err, decoded) {
-      var result = {
-        isValid: !err,
-      };
+  validate: async (token) => {
+    let result = {};
+    let isSuccess = true;
 
-      if (!err) {
-        result['decoded'] = decoded;
-      }
+    try {
+      result = await jwt.verify(token, constant.SECRET_KEY);
+    } catch (err) {
+      isSuccess = false;
+      result = err;
+    }
 
-      done(result);
-    });
+    return { result, isSuccess };
   }
 };
