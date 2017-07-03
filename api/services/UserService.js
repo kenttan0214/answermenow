@@ -2,9 +2,9 @@ module.exports = {
   createUserAccount: async (user) => {
     let response = {};
     let isSuccess = true;
-    
+
     try {
-      response = await User.create(user); // eslint-disable-line no-undef
+      response = await User.create(user);
     } catch (err) {
       response = err;
       isSuccess = false;
@@ -15,27 +15,27 @@ module.exports = {
   findUser: async (criteria) => {
     let response = {};
     let isSuccess = true;
-    
+
     try {
       response = await User.findOne(criteria);
     } catch (err) {
       isSuccess = false;
       response = err;
     }
-    
+
     return {response, isSuccess};
   },
   getUserFields: async (criteria, fields) => {
     let response = {};
-    let isSuccess = true; 
-    
+    let isSuccess = true;
+
     try {
       response = await User.findOne(criteria);
-      
+
       if (response) {
         var filteredRecord = {};
         for (let field of fields) {
-          filteredRecord[field] = record[field];
+          filteredRecord[field] = response[field];
         }
         response = filteredRecord;
       }
@@ -43,7 +43,7 @@ module.exports = {
       isSuccess = false;
       response = err;
     }
-    
+
     return {response, isSuccess};
   }
 };

@@ -7,7 +7,7 @@ module.exports = {
     const {userDetails} = req;
     const userId = JSON.stringify({id: userDetails.id});
 
-    QRService.create(userId, function (err, url) { // eslint-disable-line no-undef
+    QRService.create(userId, function (err, url) {
       if (err) {
         return res.forbidden(err);
       } else {

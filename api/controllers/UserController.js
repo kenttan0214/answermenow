@@ -9,7 +9,7 @@ module.exports = {
 
     if (user) {
       const {response, isSuccess} = await UserService.createUserAccount(user);
-      
+
       if (isSuccess) {
         const token = generateAccessToken(response);
         const result = getResponseObject(token, response);
@@ -17,7 +17,6 @@ module.exports = {
       } else {
         return res.badRequest(response);
       }
-
     } else {
       return res.forbidden();
     }
@@ -29,9 +28,9 @@ module.exports = {
 
     const { body } = req;
     const user = body ? body.user : null;
-    
+
     const {response, isSuccess} = await UserService.findUser(user);
-    
+
     if (isSuccess && response) {
       const token = generateAccessToken(response);
       const result = getResponseObject(token, response);
@@ -43,7 +42,7 @@ module.exports = {
 };
 
 function generateAccessToken (user) {
-  var token = TokenService.create({ // eslint-disable-line no-undef
+  var token = TokenService.create({
     id: user.id,
     email: user.email,
     isActive: user.isActive

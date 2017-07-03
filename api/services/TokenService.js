@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const constant = sails.config.constant; // eslint-disable-line no-undef
+const constant = sails.config.constant;
 
 module.exports = {
   create: (input) => {
