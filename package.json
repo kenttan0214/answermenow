@@ -7,8 +7,6 @@
   "dependencies": {
     "babel-eslint": "^7.2.3",
     "eslint": "^4.1.1",
-    "grunt": "1.0.1",
-    "grunt-cli": ">=0.1.13",
     "include-all": "^1.0.0",
     "jsonwebtoken": "^7.4.1",
     "qrcode": "^0.8.2",
