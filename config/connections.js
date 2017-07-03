@@ -4,7 +4,7 @@ module.exports.connections = {
     host: 'localhost',
     port: 27017,
     user: 'admin',
-    password: '5R5tQiIzQGkq',
-    database: 'invoice'
+    password: 'elDylrHYwt1R',
+    database: 'answermenow'
   }
 };
