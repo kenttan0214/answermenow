@@ -119,6 +119,8 @@
     "User": true,
     "UserService": true,
     "TokenService": true,
-    "QRService": true
+    "EmailService": true,
+    "QRService": true,
+    "Promise": true
   }
 }

@@ -3,14 +3,13 @@ module.exports = async (req, res, next) => {
 
   if (accessToken) {
     const {result, isSuccess} = await TokenService.validate(accessToken);
-    
+
     if (isSuccess && result) {
       req.userDetails = result;
       return next();
     } else {
       forbiddenRequest(res);
     }
-    
   } else {
     forbiddenRequest(res);
   }

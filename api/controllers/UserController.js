@@ -38,6 +38,10 @@ module.exports = {
     } else {
       return res.notFound({message: 'user not found'});
     }
+  },
+  sendMail: async (req, res) => {
+    const {isSuccess, sentResult} = await EmailService.sendMail();
+    return res.json({isSuccess, sentResult});
   }
 };
 
