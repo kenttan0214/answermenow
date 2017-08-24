@@ -1,3 +1,3 @@
 module.exports = {
-  index: (req, res) => res.json({message: 'api up and running!!'})
+  status: (req, res) => res.json({message: 'api up and running!!'})
 };

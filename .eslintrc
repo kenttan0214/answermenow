@@ -121,6 +121,7 @@
     "TokenService": true,
     "EmailService": true,
     "QRService": true,
-    "Promise": true
+    "Promise": true,
+    "GoogleAuthService": true
   }
 }

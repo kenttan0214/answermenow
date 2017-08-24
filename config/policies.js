@@ -1,5 +1,9 @@
 module.exports.policies = {
-  QrController: {
-    '*': ['tokenAuth', 'isUser']
+  '*': ['tokenAuth', 'isUser'],
+  ApiController: {
+    status: true
+  },
+  GoogleSignInController: {
+    '*' : true
   }
 };

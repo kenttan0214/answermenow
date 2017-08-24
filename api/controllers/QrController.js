@@ -1,9 +1,5 @@
 module.exports = {
-  index: function (req, res) {
-    if (req.method.toUpperCase() != 'GET') {
-      return res.forbidden();
-    }
-
+  getQRCode: function (req, res) {
     const {userDetails} = req;
     const userId = JSON.stringify({id: userDetails.id});
 

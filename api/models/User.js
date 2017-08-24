@@ -5,14 +5,9 @@ module.exports = {
       required: true,
       unique: true
     },
-    password: {
+    name: {
       type: 'string',
-      required: true,
-      minLength: 7
-    },
-    isActive: {
-      type: 'boolean',
-      defaultsTo: false
+      required: true
     }
   }
 };
